@@ -1,0 +1,37 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>DETALLES</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Detalle</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-card *ngIf="peliculaCompleta">
+    <ion-img src="{{peliculaCompleta.Poster}}"></ion-img>
+    <ion-card-header>
+      <ion-card-title>{{peliculaCompleta.Title}}</ion-card-title>
+      <ion-card-subtitle
+        >DIRECTOR: {{peliculaCompleta.Director}}</ion-card-subtitle
+      >
+      <ion-card-subtitle
+        >ACTORES: {{peliculaCompleta.Actors}}</ion-card-subtitle
+      >
+      <ion-card-subtitle>GENERO: {{peliculaCompleta.Genre}}</ion-card-subtitle>
+      <ion-card-subtitle>PAIS: {{peliculaCompleta.Country}}</ion-card-subtitle>
+    </ion-card-header>
+
+    <ion-card-content> {{peliculaCompleta.Plot}} </ion-card-content>
+  </ion-card>
+  <ion-img
+    *ngIf="peliculaCompleta === undefined"
+    src="assets/loading.gif"
+  ></ion-img>
+</ion-content>

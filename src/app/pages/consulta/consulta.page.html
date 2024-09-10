@@ -1,0 +1,112 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title *ngIf="!verFavoritos">CONSULTA</ion-title>
+    <ion-title *ngIf="verFavoritos">FAVORITOS</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title *ngIf="!verFavoritos" size="large">Consulta</ion-title>
+      <ion-title *ngIf="verFavoritos" size="large">Favoritos</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <div id="container" *ngIf="!verFavoritos">
+    <ion-item>
+      <ion-input
+        label="Buscar"
+        placeholder="Título"
+        [(ngModel)]="tituloBuscado"
+        (keyup)="buscar()"
+      ></ion-input>
+
+      <ion-badge color="success" slot="end"
+        >{{peliculasFiltradas.length}}</ion-badge
+      ></ion-item
+    >
+  </div>
+
+  <ion-list>
+    <ion-item-sliding *ngFor="let peli of peliculasFiltradas">
+      <ion-item-options side="start">
+        <ion-item-option
+          ><ion-icon
+            size="large"
+            name="search-circle-outline"
+            (click)="verDetalle(peli.imdbID)"
+          ></ion-icon
+        ></ion-item-option>
+        <!--
+        <ion-item-option>
+          <ion-icon
+            name="heart"
+            size="large"
+            aria-label="Favorite"
+            (click)="setFav(peli)"
+          ></ion-icon>
+        </ion-item-option>-->
+      </ion-item-options>
+
+      <!-- CARD-->
+      <ion-item>
+        <ion-card>
+          <ion-img width="200px" alt="" [src]="peli.Poster"></ion-img>
+          <ion-card-header>
+            <ion-card-title>{{peli.Title}}</ion-card-title>
+            <ion-icon
+              name="heart-sharp"
+              color="danger"
+              size="large"
+              aria-label="Favorite"
+              *ngIf="peli.fav"
+              (click)="setFav(peli)"
+            ></ion-icon>
+            <ion-icon
+              name="heart-outline"
+              size="large"
+              aria-label="Favorite"
+              *ngIf="!peli.fav"
+              (click)="setFav(peli)"
+            ></ion-icon>
+
+            <ion-card-subtitle
+              >{{peli.Type | titlecase}} - {{peli.Year}}</ion-card-subtitle
+            >
+          </ion-card-header>
+        </ion-card>
+      </ion-item>
+
+      <!---->
+
+      <ion-item-options side="end">
+        <ion-item-option
+          color="danger"
+          expandable="true"
+          (click)="eliminar(peli)"
+        >
+          <ion-icon slot="icon-only" name="trash"></ion-icon>
+        </ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+</ion-content>
+
+<ion-alert
+  [isOpen]="borrando"
+  header="Eliminar película '{{this.peliculaIDBorrar?.Title}}'"
+  message="¿Estás seguro?"
+  [buttons]="alertButtons"
+  (didDismiss)="ocultarDialogo()"
+></ion-alert>
+
+<ion-toast
+  [isOpen]="isToastOpen"
+  message="{{mensaje}}"
+  [duration]="3000"
+  (didDismiss)="setOpen(false)"
+></ion-toast>

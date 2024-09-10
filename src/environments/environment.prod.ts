@@ -1,3 +1,4 @@
 export const environment = {
-  production: true
+  production: true,
+  OMDB_API_KEY: '9d733a64'
 };

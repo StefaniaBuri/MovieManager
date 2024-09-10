@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">MovieManager</string>
+    <string name="title_activity_main">MovieManager</string>
+    <string name="package_name">com.nia.ionic.moviemanager</string>
+    <string name="custom_url_scheme">com.nia.ionic.moviemanager</string>
+</resources>
